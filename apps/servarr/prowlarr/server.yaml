@@ -1,0 +1,14 @@
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata:
+  name: prowlarr-http
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: prowlarr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: prowlarr
+  port: http
+  proxyProtocol: HTTP/1
