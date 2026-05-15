@@ -5,5 +5,6 @@ metadata:
   labels:
     app.kubernetes.io/part-of: servarr-stack
     app.kubernetes.io/managed-by: argocd
+    linkerd.io/proxy-admission: enabled
   annotations:
     config.linkerd.io/default-inbound-policy: deny
