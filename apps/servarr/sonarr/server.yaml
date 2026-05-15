@@ -1,0 +1,14 @@
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata:
+  name: sonarr-http
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: sonarr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: sonarr
+  port: http
+  proxyProtocol: HTTP/1
