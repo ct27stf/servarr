@@ -1,0 +1,12 @@
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata:
+  name: flaresolverr-clients
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: flaresolverr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  identityRefs:
+    - kind: ServiceAccount
+      name: prowlarr

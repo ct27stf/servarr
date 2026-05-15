@@ -1,0 +1,35 @@
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata:
+  name: flaresolverr-allow-probes
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: flaresolverr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  targetRef:
+    group: policy.linkerd.io
+    kind: Server
+    name: flaresolverr-http
+  requiredAuthenticationRefs:
+    - group: policy.linkerd.io
+      kind: NetworkAuthentication
+      name: kubelet-probes
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata:
+  name: flaresolverr-allow-prowlarr
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: flaresolverr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  targetRef:
+    group: policy.linkerd.io
+    kind: Server
+    name: flaresolverr-http
+  requiredAuthenticationRefs:
+    - group: policy.linkerd.io
+      kind: MeshTLSAuthentication
+      name: flaresolverr-clients
