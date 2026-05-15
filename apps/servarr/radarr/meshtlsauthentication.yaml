@@ -1,0 +1,28 @@
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata:
+  name: radarr-clients
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: radarr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  identityRefs:
+    - kind: ServiceAccount
+      name: bazarr
+    - kind: ServiceAccount
+      name: prowlarr
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata:
+  name: radarr-traefik
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: radarr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  identityRefs:
+    - kind: ServiceAccount
+      name: traefik
+      namespace: kube-system

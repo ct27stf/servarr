@@ -1,0 +1,53 @@
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata:
+  name: radarr-allow-probes
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: radarr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  targetRef:
+    group: policy.linkerd.io
+    kind: Server
+    name: radarr-http
+  requiredAuthenticationRefs:
+    - group: policy.linkerd.io
+      kind: NetworkAuthentication
+      name: kubelet-probes
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata:
+  name: radarr-allow-clients
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: radarr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  targetRef:
+    group: policy.linkerd.io
+    kind: Server
+    name: radarr-http
+  requiredAuthenticationRefs:
+    - group: policy.linkerd.io
+      kind: MeshTLSAuthentication
+      name: radarr-clients
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata:
+  name: radarr-allow-traefik
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: radarr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  targetRef:
+    group: policy.linkerd.io
+    kind: Server
+    name: radarr-http
+  requiredAuthenticationRefs:
+    - group: policy.linkerd.io
+      kind: MeshTLSAuthentication
+      name: radarr-traefik
