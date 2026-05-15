@@ -1,0 +1,24 @@
+# Sibling repo clones held in this workspace until moved out
+/argocd/
+/lan-dns/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+*~
+.idea/
+.vscode/
+
+# Local secrets and overlays
+*.secret.yaml
+**/control-plane.identity.values.yaml
+secrets/
+.env
+.env.*
+
+# Tooling outputs
+*.kubeconfig
+kubeconfig
+*.tgz
+charts/
