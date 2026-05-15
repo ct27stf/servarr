@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: servarr
+  labels:
+    app.kubernetes.io/part-of: servarr-stack
+    app.kubernetes.io/managed-by: argocd
+  annotations:
+    config.linkerd.io/default-inbound-policy: deny

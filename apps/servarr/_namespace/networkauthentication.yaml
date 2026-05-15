@@ -1,0 +1,10 @@
+apiVersion: policy.linkerd.io/v1alpha1
+kind: NetworkAuthentication
+metadata:
+  name: kubelet-probes
+  namespace: servarr
+  labels:
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  networks:
+    - cidr: 192.168.68.62/32
