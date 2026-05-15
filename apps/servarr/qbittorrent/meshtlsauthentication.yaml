@@ -1,0 +1,28 @@
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata:
+  name: qbittorrent-clients
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: qbittorrent
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  identityRefs:
+    - kind: ServiceAccount
+      name: sonarr
+    - kind: ServiceAccount
+      name: radarr
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata:
+  name: qbittorrent-traefik
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: qbittorrent
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  identityRefs:
+    - kind: ServiceAccount
+      name: traefik
+      namespace: kube-system

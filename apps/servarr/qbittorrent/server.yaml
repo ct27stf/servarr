@@ -1,0 +1,14 @@
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata:
+  name: qbittorrent-http
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: qbittorrent
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: qbittorrent
+  port: http
+  proxyProtocol: HTTP/1
