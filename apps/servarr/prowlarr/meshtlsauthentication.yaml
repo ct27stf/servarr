@@ -1,6 +1,21 @@
 apiVersion: policy.linkerd.io/v1alpha1
 kind: MeshTLSAuthentication
 metadata:
+  name: prowlarr-clients
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: prowlarr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  identityRefs:
+    - kind: ServiceAccount
+      name: radarr
+    - kind: ServiceAccount
+      name: sonarr
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: MeshTLSAuthentication
+metadata:
   name: prowlarr-traefik
   namespace: servarr
   labels:
