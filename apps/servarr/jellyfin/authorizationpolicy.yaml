@@ -1,0 +1,35 @@
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata:
+  name: jellyfin-allow-probes
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  targetRef:
+    group: policy.linkerd.io
+    kind: Server
+    name: jellyfin-http
+  requiredAuthenticationRefs:
+    - group: policy.linkerd.io
+      kind: NetworkAuthentication
+      name: kubelet-probes
+---
+apiVersion: policy.linkerd.io/v1alpha1
+kind: AuthorizationPolicy
+metadata:
+  name: jellyfin-allow-traefik
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  targetRef:
+    group: policy.linkerd.io
+    kind: Server
+    name: jellyfin-http
+  requiredAuthenticationRefs:
+    - group: policy.linkerd.io
+      kind: MeshTLSAuthentication
+      name: jellyfin-traefik
