@@ -20,6 +20,7 @@ spec:
         app.kubernetes.io/part-of: servarr-stack
       annotations:
         linkerd.io/inject: enabled
+        config.linkerd.io/skip-inbound-ports: "7359"
     spec:
       serviceAccountName: jellyfin
       securityContext:
@@ -31,7 +32,12 @@ spec:
           ports:
             - name: http
               containerPort: 8096
+              hostPort: 8096
               protocol: TCP
+            - name: discovery
+              containerPort: 7359
+              hostPort: 7359
+              protocol: UDP
           env:
             - name: PUID
               value: "1000"
