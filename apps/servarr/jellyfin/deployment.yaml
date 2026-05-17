@@ -46,7 +46,7 @@ spec:
             - name: TZ
               value: Europe/Bucharest
             - name: JELLYFIN_PublishedServerUrl
-              value: https://jellyfin.lan
+              value: http://jellyfin.lan
           volumeMounts:
             - name: config
               mountPath: /config
