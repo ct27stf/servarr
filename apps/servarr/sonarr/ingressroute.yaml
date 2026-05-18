@@ -21,4 +21,5 @@ spec:
       services:
         - name: sonarr
           port: 8989
-  tls: {}
+  tls:
+    secretName: sonarr-lan-tls

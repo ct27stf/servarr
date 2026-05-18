@@ -21,4 +21,5 @@ spec:
       services:
         - name: radarr
           port: 7878
-  tls: {}
+  tls:
+    secretName: radarr-lan-tls
