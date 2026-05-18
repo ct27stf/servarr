@@ -1,17 +1,16 @@
+# HTTP only — separate IngressRoute required; Traefik does not route web when
+# web + websecure + tls are combined in one IngressRoute (HTTP returns 404).
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: seerr
+  name: seerr-http
   namespace: servarr
   labels:
     app.kubernetes.io/name: seerr
     app.kubernetes.io/part-of: servarr-stack
-  annotations:
-    external-dns.alpha.kubernetes.io/hostname: seerr.lan
-    external-dns.alpha.kubernetes.io/target: "192.168.68.62"
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
     - match: Host(`seerr.lan`)
       kind: Rule
@@ -21,5 +20,3 @@ spec:
       services:
         - name: seerr
           port: 5055
-  tls:
-    secretName: seerr-lan-tls
