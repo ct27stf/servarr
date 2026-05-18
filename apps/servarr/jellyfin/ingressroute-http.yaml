@@ -1,7 +1,9 @@
+# HTTP only — separate IngressRoute required; Traefik does not route web when
+# web + websecure + tls are combined in one IngressRoute (HTTP returns 404).
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: jellyfin
+  name: jellyfin-http
   namespace: servarr
   labels:
     app.kubernetes.io/name: jellyfin
@@ -11,7 +13,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: "192.168.68.62"
 spec:
   entryPoints:
-    - websecure
+    - web
   routes:
     - match: Host(`jellyfin.lan`)
       kind: Rule
@@ -21,5 +23,3 @@ spec:
       services:
         - name: jellyfin
           port: 8096
-  tls:
-    secretName: jellyfin-lan-tls
