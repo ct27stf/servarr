@@ -7,8 +7,9 @@ metadata:
     app.kubernetes.io/name: seerr
     app.kubernetes.io/part-of: servarr-stack
 spec:
+  # Helm chart name is "seerr-chart"; releaseName is "seerr" → instance label is stable.
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: seerr
-  port: 5055
+      app.kubernetes.io/instance: seerr
+  port: http
   proxyProtocol: HTTP/1

@@ -24,6 +24,7 @@ podAnnotations:
   linkerd.io/inject: enabled
 
 podLabels:
+  app.kubernetes.io/name: seerr
   app.kubernetes.io/part-of: servarr-stack
 
 extraEnv:
