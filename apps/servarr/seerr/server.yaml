@@ -1,0 +1,14 @@
+apiVersion: policy.linkerd.io/v1beta3
+kind: Server
+metadata:
+  name: seerr-http
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: seerr
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: seerr
+  port: http
+  proxyProtocol: HTTP/1

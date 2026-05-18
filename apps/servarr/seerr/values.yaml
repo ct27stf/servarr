@@ -1,0 +1,49 @@
+fullnameOverride: seerr
+
+image:
+  tag: v3.2.0
+
+config:
+  persistence:
+    storageClass: local-path
+    size: 2Gi
+
+ingress:
+  enabled: false
+route:
+  main:
+    enabled: false
+
+podAnnotations:
+  linkerd.io/inject: enabled
+
+podLabels:
+  app.kubernetes.io/part-of: servarr-stack
+
+extraEnv:
+  - name: DB_TYPE
+    value: sqlite
+  - name: TZ
+    value: Europe/Bucharest
+  - name: LOG_LEVEL
+    value: info
+  - name: NODE_EXTRA_CA_CERTS
+    value: /etc/ssl/certs/homelab/homelan.crt
+
+volumes:
+  - name: homelab-ca
+    configMap:
+      name: homelab-lan-trust-roots
+
+volumeMounts:
+  - name: homelab-ca
+    mountPath: /etc/ssl/certs/homelab
+    readOnly: true
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
