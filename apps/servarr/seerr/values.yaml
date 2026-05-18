@@ -1,4 +1,7 @@
 fullnameOverride: seerr
+# Chart name is "seerr-chart"; without this, pods get app.kubernetes.io/name=seerr-chart
+# and Linkerd Server/policy selectors (app.kubernetes.io/name=seerr) never match.
+nameOverride: seerr
 
 image:
   tag: v3.2.0

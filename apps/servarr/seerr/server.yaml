@@ -11,3 +11,4 @@ spec:
     matchLabels:
       app.kubernetes.io/name: seerr
   port: 5055
+  proxyProtocol: HTTP/1
