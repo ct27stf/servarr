@@ -11,6 +11,7 @@ metadata:
     external-dns.alpha.kubernetes.io/target: "192.168.68.62"
 spec:
   entryPoints:
+    - web
     - websecure
   routes:
     - match: Host(`seerr.lan`)
