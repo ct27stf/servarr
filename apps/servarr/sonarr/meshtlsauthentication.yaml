@@ -12,6 +12,8 @@ spec:
       name: bazarr
     - kind: ServiceAccount
       name: prowlarr
+    - kind: ServiceAccount
+      name: seerr
 ---
 apiVersion: policy.linkerd.io/v1alpha1
 kind: MeshTLSAuthentication
