@@ -21,4 +21,5 @@ spec:
       services:
         - name: qbittorrent
           port: 9091
-  tls: {}
+  tls:
+    secretName: qbittorrent-lan-tls
