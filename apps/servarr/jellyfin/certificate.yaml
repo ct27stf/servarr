@@ -1,0 +1,17 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: jellyfin-lan-tls
+  namespace: servarr
+  labels:
+    app.kubernetes.io/name: jellyfin
+    app.kubernetes.io/part-of: servarr-stack
+spec:
+  secretName: jellyfin-lan-tls
+  issuerRef:
+    name: homelab-lan-ca
+    kind: ClusterIssuer
+  dnsNames:
+    - jellyfin.lan
+  duration: 2160h0m0s
+  renewBefore: 720h0m0s

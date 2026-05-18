@@ -12,6 +12,7 @@ metadata:
 spec:
   entryPoints:
     - web
+    - websecure
   routes:
     - match: Host(`jellyfin.lan`)
       kind: Rule
@@ -21,3 +22,5 @@ spec:
       services:
         - name: jellyfin
           port: 8096
+  tls:
+    secretName: jellyfin-lan-tls
