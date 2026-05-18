@@ -8,6 +8,9 @@ config:
     storageClass: local-path
     size: 2Gi
 
+service:
+  port: 5055
+
 ingress:
   enabled: false
 route:

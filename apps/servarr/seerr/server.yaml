@@ -10,5 +10,4 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: seerr
-  port: http
-  proxyProtocol: HTTP/1
+  port: 5055
