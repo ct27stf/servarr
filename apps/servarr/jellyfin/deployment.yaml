@@ -25,12 +25,6 @@ spec:
       serviceAccountName: jellyfin
       securityContext:
         fsGroup: 1000
-        # Host render/video GIDs so abc (PUID 1000) can open /dev/dri/renderD128.
-        # Docker --device=/dev/dri is not enough in k8s; match the node:
-        #   stat -c '%g' /dev/dri/renderD128 && getent group video
-        supplementalGroups:
-          - 44   # video (fris-bofh)
-          - 109  # render (fris-bofh: getent group render)
       nodeSelector:
         kubernetes.io/hostname: fris-bofh
       containers:
