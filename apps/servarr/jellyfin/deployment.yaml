@@ -31,10 +31,18 @@ spec:
         supplementalGroups:
           - 44   # video (fris-bofh)
           - 109  # render (fris-bofh: getent group render)
+      nodeSelector:
+        kubernetes.io/hostname: fris-bofh
       containers:
         - name: jellyfin
           image: lscr.io/linuxserver/jellyfin:10.11.9
           imagePullPolicy: IfNotPresent
+          securityContext:
+            # hostPath alone does not grant cgroup access to char devices (unlike
+            # docker --device). Jellyfin VA-API needs open(2) on renderD128.
+            privileged: true
+            seccompProfile:
+              type: Unconfined
           ports:
             - name: http
               containerPort: 8096
@@ -61,8 +69,10 @@ spec:
               readOnly: true
             - name: transcode
               mountPath: /transcode
-            - name: dri
-              mountPath: /dev/dri
+            - name: dri-card
+              mountPath: /dev/dri/card1
+            - name: dri-render
+              mountPath: /dev/dri/renderD128
           readinessProbe:
             tcpSocket:
               port: http
@@ -93,7 +103,11 @@ spec:
           hostPath:
             path: /mnt/servarr/jellyfin/transcode
             type: DirectoryOrCreate
-        - name: dri
+        - name: dri-card
           hostPath:
-            path: /dev/dri
-            type: Directory
+            path: /dev/dri/card1
+            type: CharDevice
+        - name: dri-render
+          hostPath:
+            path: /dev/dri/renderD128
+            type: CharDevice
