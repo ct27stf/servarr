@@ -25,6 +25,11 @@ spec:
       serviceAccountName: jellyfin
       securityContext:
         fsGroup: 1000
+        # abc (PUID 1000) still needs host video/render GIDs for VAAPI; privileged
+        # alone only helps the device cgroup, not DAC on renderD128.
+        supplementalGroups:
+          - 44   # video (fris-bofh)
+          - 109  # render (fris-bofh)
       nodeSelector:
         kubernetes.io/hostname: fris-bofh
       containers:
@@ -63,10 +68,8 @@ spec:
               readOnly: true
             - name: transcode
               mountPath: /transcode
-            - name: dri-card
-              mountPath: /dev/dri/card1
-            - name: dri-render
-              mountPath: /dev/dri/renderD128
+            - name: dri
+              mountPath: /dev/dri
           readinessProbe:
             tcpSocket:
               port: http
@@ -97,11 +100,7 @@ spec:
           hostPath:
             path: /mnt/servarr/jellyfin/transcode
             type: DirectoryOrCreate
-        - name: dri-card
+        - name: dri
           hostPath:
-            path: /dev/dri/card1
-            type: CharDevice
-        - name: dri-render
-          hostPath:
-            path: /dev/dri/renderD128
-            type: CharDevice
+            path: /dev/dri
+            type: Directory
