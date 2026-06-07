@@ -20,6 +20,7 @@ spec:
         app.kubernetes.io/part-of: servarr-stack
       annotations:
         linkerd.io/inject: enabled
+        config.linkerd.io/skip-inbound-ports: "9091,6881"
     spec:
       serviceAccountName: qbittorrent
       securityContext:
@@ -53,20 +54,26 @@ spec:
             - name: downloads
               mountPath: /downloads
           startupProbe:
-            httpGet:
-              path: /
-              port: http
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - wget -q -T 2 -O /dev/null http://127.0.0.1:9091/ || exit 1
             failureThreshold: 30
             periodSeconds: 5
           readinessProbe:
-            httpGet:
-              path: /
-              port: http
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - wget -q -T 2 -O /dev/null http://127.0.0.1:9091/ || exit 1
             periodSeconds: 10
           livenessProbe:
-            httpGet:
-              path: /
-              port: http
+            exec:
+              command:
+                - /bin/sh
+                - -c
+                - wget -q -T 2 -O /dev/null http://127.0.0.1:9091/ || exit 1
             initialDelaySeconds: 60
             periodSeconds: 30
           resources:
