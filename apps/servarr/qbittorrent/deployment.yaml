@@ -52,13 +52,20 @@ spec:
               mountPath: /config
             - name: downloads
               mountPath: /downloads
-          readinessProbe:
-            tcpSocket:
+          startupProbe:
+            httpGet:
+              path: /
               port: http
-            initialDelaySeconds: 15
+            failureThreshold: 30
+            periodSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
             periodSeconds: 10
           livenessProbe:
-            tcpSocket:
+            httpGet:
+              path: /
               port: http
             initialDelaySeconds: 60
             periodSeconds: 30
