@@ -34,7 +34,7 @@ spec:
         kubernetes.io/hostname: fris-bofh
       containers:
         - name: jellyfin
-          image: lscr.io/linuxserver/jellyfin:10.11.9
+          image: lscr.io/linuxserver/jellyfin:10.11.11
           imagePullPolicy: IfNotPresent
           securityContext:
             # hostPath alone does not grant cgroup access to char devices (unlike
